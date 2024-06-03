@@ -1,0 +1,88 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/andofwinds/Desktop/Anda/Anda/Anda.csproj": {}
+  },
+  "projects": {
+    "/home/andofwinds/Desktop/Anda/Anda/Anda.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/andofwinds/Desktop/Anda/Anda/Anda.csproj",
+        "projectName": "Anda",
+        "projectPath": "/home/andofwinds/Desktop/Anda/Anda/Anda.csproj",
+        "packagesPath": "/home/andofwinds/.nuget/packages/",
+        "outputPath": "/home/andofwinds/Desktop/Anda/Anda/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/andofwinds/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "OpenTK": {
+              "target": "Package",
+              "version": "[4.5.0, )"
+            },
+            "SixLabors.ImageSharp": {
+              "target": "Package",
+              "version": "[3.1.4, )"
+            },
+            "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[9.0.0-preview.4.24267.1, )"
+            },
+            "X11": {
+              "target": "Package",
+              "version": "[1.0.6, )"
+            },
+            "glfw": {
+              "target": "Package",
+              "version": "[3.4.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/nix/store/m3jnvzqh93cil0ki1c573zzgw52hmllr-dotnet-sdk-8.0.204/sdk/8.0.204/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

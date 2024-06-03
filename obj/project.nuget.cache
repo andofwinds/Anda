@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "dgSpecHash": "GGalcgIeXvVCgCD0YNaKubJb9wzFJtFOcKssbe9IX27X7eH6TJFgLDAw7MSFpLdhZ6CkfxcJHqGK7sdzmtO6Sg==",
+  "success": true,
+  "projectFilePath": "/home/andofwinds/Desktop/Anda/Anda/Anda.csproj",
+  "expectedPackageFiles": [
+    "/home/andofwinds/.nuget/packages/glfw/3.4.0/glfw.3.4.0.nupkg.sha512",
+    "/home/andofwinds/.nuget/packages/microsoft.win32.systemevents/9.0.0-preview.4.24266.19/microsoft.win32.systemevents.9.0.0-preview.4.24266.19.nupkg.sha512",
+    "/home/andofwinds/.nuget/packages/opentk/4.5.0/opentk.4.5.0.nupkg.sha512",
+    "/home/andofwinds/.nuget/packages/opentk.compute/4.5.0/opentk.compute.4.5.0.nupkg.sha512",
+    "/home/andofwinds/.nuget/packages/opentk.core/4.5.0/opentk.core.4.5.0.nupkg.sha512",
+    "/home/andofwinds/.nuget/packages/opentk.graphics/4.5.0/opentk.graphics.4.5.0.nupkg.sha512",
+    "/home/andofwinds/.nuget/packages/opentk.input/4.5.0/opentk.input.4.5.0.nupkg.sha512",
+    "/home/andofwinds/.nuget/packages/opentk.mathematics/4.5.0/opentk.mathematics.4.5.0.nupkg.sha512",
+    "/home/andofwinds/.nuget/packages/opentk.openal/4.5.0/opentk.openal.4.5.0.nupkg.sha512",
+    "/home/andofwinds/.nuget/packages/opentk.redist.glfw/3.3.0-pre20200830200122/opentk.redist.glfw.3.3.0-pre20200830200122.nupkg.sha512",
+    "/home/andofwinds/.nuget/packages/opentk.windowing.common/4.5.0/opentk.windowing.common.4.5.0.nupkg.sha512",
+    "/home/andofwinds/.nuget/packages/opentk.windowing.desktop/4.5.0/opentk.windowing.desktop.4.5.0.nupkg.sha512",
+    "/home/andofwinds/.nuget/packages/opentk.windowing.graphicslibraryframework/4.5.0/opentk.windowing.graphicslibraryframework.4.5.0.nupkg.sha512",
+    "/home/andofwinds/.nuget/packages/sixlabors.imagesharp/3.1.4/sixlabors.imagesharp.3.1.4.nupkg.sha512",
+    "/home/andofwinds/.nuget/packages/system.drawing.common/9.0.0-preview.4.24267.1/system.drawing.common.9.0.0-preview.4.24267.1.nupkg.sha512",
+    "/home/andofwinds/.nuget/packages/x11/1.0.6/x11.1.0.6.nupkg.sha512"
+  ],
+  "logs": []
+}
