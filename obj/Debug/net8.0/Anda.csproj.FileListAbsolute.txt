@@ -33,3 +33,6 @@
 /home/andofwinds/Desktop/Anda/Anda/bin/Debug/net8.0/System.Private.Windows.Core.dll
 /home/andofwinds/Desktop/Anda/Anda/bin/Debug/net8.0/runtimes/win/lib/net8.0/Microsoft.Win32.SystemEvents.dll
 /home/andofwinds/Desktop/Anda/Anda/bin/Debug/net8.0/SixLabors.ImageSharp.dll
+/home/andofwinds/Desktop/Anda/Anda/bin/Debug/net8.0/SixLabors.Fonts.dll
+/home/andofwinds/Desktop/Anda/Anda/bin/Debug/net8.0/SixLabors.ImageSharp.Drawing.dll
+/home/andofwinds/Desktop/Anda/Anda/obj/Debug/net8.0/Anda.sourcelink.json

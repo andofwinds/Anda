@@ -13,6 +13,7 @@ using AndaFramework.Graphics;
 using AndaFramework.Input;
 using AndaFramework.Logging;
 using Convert = AndaFramework.Utils.Convert;
+using AndaFramework.Graphics.Text;
 
 namespace Anda
 {
@@ -84,33 +85,19 @@ namespace Anda
                     "/home/andofwinds/Desktop/Anda/Anda/texture_shader.frag");
             _textureProgram.LinkAll();
 
-            _drawableObjects.Add(
-                    new TexturedDrawableObject(
-                        VertexFactory.GenerateTexturedCube(0.2f, 256, 256),
-                        _textureProgram.Id,
-                        "/home/andofwinds/Desktop/Anda/Anda/Textures/dotted.png")
-                    );
 
+
+            _drawableObjects.Add(
+                    new GeneratedMipmapDrawableObject(
+                        VertexFactory.GenerateTexturedCube(1, 1, 1),
+                        _textureProgram.Id,
+                        "/home/andofwinds/Desktop/Anda/Anda/Textures/gmd.png",
+                        8)
+                    );
             _drawableObjects.Add(
                     new DrawableObject(
                             VertexFactory.GenerateRect(new Vector2(0, 0.1f), 0.2f, Convert.RgbaToColor4("#EAB2C2")),
                             _solidProgram.Id
-                        )
-                    );
-
-            _drawableObjects.Add(
-                    new TexturedDrawableObject(
-                            VertexFactory.GenerateTexturedRect(new Vector2(0, 0), 0.2f, new Vector2(180, 180), 0.2f),
-                            _textureProgram.Id,
-                            "/home/andofwinds/Desktop/Anda/Anda/Textures/gmd.png"
-                        )
-                    );
-
-            _drawableObjects.Add(
-                    new TexturedDrawableObject(
-                        VertexFactory.GenerateTexturedCube(0.2f, 180, 180),
-                        _textureProgram.Id,
-                        "/home/andofwinds/Desktop/Anda/Anda/Textures/gmd.png"
                         )
                     );
 
@@ -119,6 +106,7 @@ namespace Anda
             GL.PointSize(5);
             GL.Enable(EnableCap.DepthTest);
 
+            AndaFont.GenerateFont();
 
             loadTimer.Stop();
             Logger.Log("RUNTIME", $"Loading completed in {loadTimer.Elapsed.TotalSeconds} seconds! Processing main loop.");
@@ -259,7 +247,7 @@ namespace Anda
 
 /*
  * TODO
- * - Textured rectangle
+ * - Textured rectangle +
  * - Anda SDK
  * - Warns / Errors in AndaFramework.Logging
  * - Code refractoring
