@@ -18,7 +18,7 @@ I'm Anda's solo developer & contributer.
 *fyi: developing in [neovim](https://neovim.io/) and under [NixOS](https://nixos.org/)*
 
 ## Download?
-Sorry, but Anda is not published yet./
+Sorry, but Anda is not published yet.
 ---
 but you can also try a last beta release!
 
