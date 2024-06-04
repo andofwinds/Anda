@@ -89,15 +89,24 @@ namespace Anda
 
             _drawableObjects.Add(
                     new GeneratedMipmapDrawableObject(
-                        VertexFactory.GenerateTexturedCube(1, 1, 1),
+                        VertexFactory.GenerateTexturedCube(0.5f, 0.2f, 1),
                         _textureProgram.Id,
-                        "/home/andofwinds/Desktop/Anda/Anda/Textures/gmd.png",
+                        "/home/andofwinds/Desktop/Anda/Anda/Textures/dotted.png",
                         8)
                     );
             _drawableObjects.Add(
                     new DrawableObject(
-                            VertexFactory.GenerateRect(new Vector2(0, 0.1f), 0.2f, Convert.RgbaToColor4("#EAB2C2")),
+                            VertexFactory.GenerateRect(new Vector2(0, 0.1f), 0.1f, Convert.RgbaToColor4("#EAB2C2")),
                             _solidProgram.Id
+                        )
+                    );
+
+            _drawableObjects.Add(
+                        new GeneratedMipmapDrawableObject(
+                            new DrawableSphere().Create(3),
+                            _textureProgram.Id,
+                            "/home/andofwinds/Desktop/Anda/Anda/Textures/dotted.png",
+                            8
                         )
                     );
 
