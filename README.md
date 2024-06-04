@@ -23,7 +23,7 @@ Sorry, but Anda is not published yet./
 but you can also try a last beta release!
 
 ```bash
-git clone https://github.com/andofwinds.Anda
+git clone https://github.com/andofwinds/Anda
 cd Anda
 dotnet run
 ```
