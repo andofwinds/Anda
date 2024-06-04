@@ -28,5 +28,5 @@ cd Anda
 dotnet run
 ```
 
-### Keybindings
+## Keybindings
 ![Anda's keybindings](/ReadmeRes/Readme_bindings.png)
