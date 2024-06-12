@@ -31,7 +31,7 @@ namespace AndaFramework.Graphics.Shader
             GL.GetShader(_shader, ShaderParameter.CompileStatus, out int success);
             if (success == 0)
             {
-                Logger.Log("SHADER", $"{GL.GetShaderInfoLog(_shader)}");
+                Logger.Err("SHADER", $"{GL.GetShaderInfoLog(_shader)}");
             }
         }
 
@@ -88,7 +88,7 @@ namespace AndaFramework.Graphics.Shader
             string infoLog = GL.GetShaderInfoLog(shader);
             if (!string.IsNullOrWhiteSpace(infoLog))
             {
-                Logger.Log("SHADER", infoLog);
+                Logger.Err("SHADER", infoLog);
             }
 
             _shaders.Add(shader);
@@ -105,7 +105,7 @@ namespace AndaFramework.Graphics.Shader
             string infoLog = GL.GetProgramInfoLog(_program);
             if (!string.IsNullOrWhiteSpace(infoLog))
             {
-                Logger.Log("PROGRAM", infoLog);
+                Logger.Err("PROGRAM", infoLog);
             }
 
             foreach (int shader in _shaders)

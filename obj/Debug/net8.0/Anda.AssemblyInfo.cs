@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Anda")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5034f7c75ccaadc690d64177770e42e2b995712e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+baef5ae5239a6e11455943b145b7d112d6b97f0a")]
 [assembly: System.Reflection.AssemblyProductAttribute("Anda")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Anda")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

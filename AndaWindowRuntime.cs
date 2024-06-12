@@ -2,8 +2,11 @@ using System.Diagnostics;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
+using OpenTK.Windowing.Common.Input;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using Image = SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
 
 using Anda.AndaFramework;
 using AndaFramework.Graphics.Shader;
@@ -14,6 +17,8 @@ using AndaFramework.Input;
 using AndaFramework.Logging;
 using Convert = AndaFramework.Utils.Convert;
 using AndaFramework.Graphics.Text;
+using AndaFramework.Graphics.Object;
+using AndaFramework.Graphics.Camera;
 
 namespace Anda
 {
@@ -26,14 +31,18 @@ namespace Anda
         // Float
         private float _time;
         private float _deltaTime;
-        private float _fov = 60f;
+        private float _fov = 45f;
         private float _speed = 1f;
 
         // String
         private string _keyPress = "-";
 
+        // Boolean
+        private bool _isFullscreen = true;
+
         // List
         private List<AndaDrawable> _drawableObjects = new List<AndaDrawable>();
+        private List<AndaObject> _objects = new List<AndaObject>();
 
         //VectorX
         private Vector3 _translation = new Vector3(0, 0, 0);
@@ -49,6 +58,9 @@ namespace Anda
         private Input _input;
         private Program _solidProgram;
         private Program _textureProgram;
+        private Program _textProgram;
+        private AndaObject _testRectObject;
+        private AndaCamera _camera;
 
 
         public AndaWindowRuntime(int width, int height, string title)
@@ -66,56 +78,107 @@ namespace Anda
             Logger.Log("RUNTIME", "Loading runtime....");
             loadTimer.Start();
 
+            Directory.SetCurrentDirectory(".");
             CursorVisible = true;
             VSync = VSyncMode.On;
 
+            WindowState = WindowState.Fullscreen;
+            WindowBorder = WindowBorder.Hidden;
+
             CreateProjection();
+            AndaFont.GenerateFont();
 
             _solidProgram = new Program();
             _solidProgram.AttachShaderFromFile(ShaderType.VertexShader,
-                    "/home/andofwinds/Desktop/Anda/Anda/shader.vert");
+                    "Shaders/shader.vert");
             _solidProgram.AttachShaderFromFile(ShaderType.FragmentShader,
-                    "/home/andofwinds/Desktop/Anda/Anda/shader.frag");
+                    "Shaders/shader.frag");
             _solidProgram.LinkAll();
 
             _textureProgram = new Program();
             _textureProgram.AttachShaderFromFile(ShaderType.VertexShader,
-                    "/home/andofwinds/Desktop/Anda/Anda/texture_shader.vert");
+                    "Shaders/texture_shader.vert");
             _textureProgram.AttachShaderFromFile(ShaderType.FragmentShader,
-                    "/home/andofwinds/Desktop/Anda/Anda/texture_shader.frag");
+                    "Shaders/texture_shader.frag");
             _textureProgram.LinkAll();
 
+            _textProgram = new Program();
+            _textProgram.AttachShaderFromFile(ShaderType.VertexShader,
+                    "Shaders/text_shader.vert");
+            _textProgram.AttachShaderFromFile(ShaderType.FragmentShader,
+                    "Shaders/text_shader.frag");
+            _textProgram.LinkAll();
 
-
-            _drawableObjects.Add(
-                    new GeneratedMipmapDrawableObject(
-                        VertexFactory.GenerateTexturedCube(0.5f, 0.2f, 1),
-                        _textureProgram.Id,
-                        "/home/andofwinds/Desktop/Anda/Anda/Textures/dotted.png",
-                        8)
-                    );
-            _drawableObjects.Add(
+            /*_testRectObject = new TestObject(
                     new DrawableObject(
-                            VertexFactory.GenerateRect(new Vector2(0, 0.1f), 0.1f, Convert.RgbaToColor4("#EAB2C2")),
-                            _solidProgram.Id
-                        )
+                        VertexFactory.GenerateRect(
+                                new Vector2(-0.5f, 0.5f), 0.2f, Convert.RgbaToColor4("#EAB2C2")
+                            ),
+                        _solidProgram.Id
+                        ),
+                    new Vector4(0, -1f, -2.7f, 0),
+                    Vector4.Zero,
+                    Vector4.Zero,
+                    0
+                    );*/
+
+            _testRectObject = new TestObject(
+                    new GeneratedMipmapDrawableObject(
+                        VertexFactory.GenerateTexturedRect(
+                            new Vector2(0, 0),
+                            1f,
+                            new Vector2(1, 1),
+                            1f
+                            ),
+
+                        _textureProgram.Id,
+                        "Textures/bwa.jpg",
+                        8),
+
+                    new Vector4(1f, 0f, 2, 1),
+                    Vector4.Zero,
+                    new Vector4(20, 0, 0, 0),
+                    0
                     );
 
-            _drawableObjects.Add(
-                        new GeneratedMipmapDrawableObject(
-                            new DrawableSphere().Create(3),
-                            _textureProgram.Id,
-                            "/home/andofwinds/Desktop/Anda/Anda/Textures/dotted.png",
-                            8
-                        )
+            AndaObject sphere = new TestObject(
+                    new GeneratedMipmapDrawableObject(
+                        new DrawableSphere().Create(3),
+                        _textureProgram.Id,
+                        "Textures/bwa.jpg",
+                        8),
+
+                    new Vector4(1f, 0, 2, 1),
+                    Vector4.Zero,
+                    Vector4.Zero,
+                    0
                     );
+
+            AndaDrawable andaTextDrawable = new TexturedDrawableObject(
+                    VertexFactory.GenerateCharacter(),
+                    _textProgram.Id,
+                    "Fonts/Fredoka.ttf.png"
+                    );
+
+            AndaText andaText = new AndaText(
+                    andaTextDrawable,
+                    new Vector4(0, 0, -0.4f, 1),
+                    Color4.Red,
+                    "Hello world!"
+                    );
+
+            //_objects.Add(_testRectObject);
+            //_objects.Add(sphere);
+            _objects.Add(andaText);
+
+            _camera = new StaticCamera();
 
             GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
             GL.PatchParameter(PatchParameterInt.PatchVertices, 3);
             GL.PointSize(5);
             GL.Enable(EnableCap.DepthTest);
-
-            AndaFont.GenerateFont();
+            GL.Enable(EnableCap.Blend);
+            GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
             loadTimer.Stop();
             Logger.Log("RUNTIME", $"Loading completed in {loadTimer.Elapsed.TotalSeconds} seconds! Processing main loop.");
@@ -125,34 +188,33 @@ namespace Anda
         protected override void OnRenderFrame(FrameEventArgs e)
         {
             Title = $"Anda (Framework: {Metadata._ver} | VSync: {VSync} | FPS: {MathF.Round(1f / _deltaTime)} | Frame time: {_deltaTime:F3} | Run time: {_time:F1}) | Input (Last press: {_keyPress})";
-
             GL.ClearColor(0.1f, 0.2f, 0.3f, 1f);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            CreateProjection();
 
-            // Render 
-
-            float xpos = -0.5f;
-            int drawablesCount = _drawableObjects.Count + 1;
-            foreach (AndaDrawable o in _drawableObjects)
+            int lastProg = -1;
+            Vector2 off = new Vector2(0.5f, 0);
+            foreach (AndaObject o in _objects)
             {
-                o.Bind();
-                for (int i = 0; i < drawablesCount; i++)
-                {
-                    //o.Bind();
-                    _translation.X = xpos;
-                    _model = Matrix4.CreateTranslation(_translation);
-
-                    GL.UniformMatrix4(22, false, ref _model);
-                    GL.UniformMatrix4(21, false, ref _view);
-                    GL.UniformMatrix4(20, false, ref _projectionMatrix);
-
-                    o.Render();
-                }
-
-                xpos += 0.5f;
+                lastProg = RenderElement(o, lastProg);
             }
 
             SwapBuffers();
+        }
+
+        private int RenderElement(AndaObject obj, int lastProgram)
+        {
+            int program = obj.Drawable.GetProgram();
+
+            if (lastProgram != program)
+            {
+                GL.UniformMatrix4(20, false, ref _projectionMatrix);
+            }
+
+            lastProgram = obj.Drawable.GetProgram();
+            obj.Render(_camera);
+
+            return lastProgram;
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
@@ -209,6 +271,11 @@ namespace Anda
                 _fov += 1;
                 CreateProjection();
             }
+
+            if (KeyboardState.IsKeyDown(Keys.Delete))
+            {
+                ToggleFullscreen();
+            }
         }
 
         protected override void OnResize(ResizeEventArgs e)
@@ -244,10 +311,26 @@ namespace Anda
             _projectionMatrix = Matrix4.CreatePerspectiveFieldOfView(
                 MathHelper.DegreesToRadians(_fov),
                 aspectRatio,
-                0.1f,
+                0.01f,
                 4000f);
 
             _view = Matrix4.CreateTranslation(0f, 0f, -2f);
+        }
+
+        private void ToggleFullscreen()
+        {
+            if (_isFullscreen)
+            {
+                WindowState = WindowState.Normal;
+                WindowBorder = WindowBorder.Resizable;
+            }
+            else
+            {
+                WindowState = WindowState.Fullscreen;
+                WindowBorder = WindowBorder.Hidden;
+            }
+
+            _isFullscreen = !_isFullscreen;
         }
     }
 }
@@ -262,3 +345,4 @@ namespace Anda
  * - Code refractoring
  * - Text
  */
+
